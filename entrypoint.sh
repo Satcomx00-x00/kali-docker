@@ -1,6 +1,9 @@
 #!/bin/bash
 
 # Set password for VNC
+rm /tmp/.X0-lock
+rm /tmp/.X11-unix/X0
+
 
 mkdir -p /root/.vnc/
 echo $VNCPWD | vncpasswd -f > /root/.vnc/passwd
