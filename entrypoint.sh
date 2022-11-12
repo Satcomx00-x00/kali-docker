@@ -1,10 +1,14 @@
 #!/bin/bash
 
 # Set password for VNC
+{ # try
+
 rm /tmp/.X0-lock
 rm /tmp/.X11-unix/X0
 
-
+} || { # catch
+    # save log for exception 
+}
 mkdir -p /root/.vnc/
 echo $VNCPWD | vncpasswd -f > /root/.vnc/passwd
 chmod 600 /root/.vnc/passwd
