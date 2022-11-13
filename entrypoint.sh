@@ -1,14 +1,6 @@
 #!/bin/bash
 
-# Set password for VNC
-{ # try
 
-rm /tmp/.X0-lock
-rm /tmp/.X11-unix/X0
-
-} || { # catch
-    # save log for exception 
-}
 mkdir -p /root/.vnc/
 echo $VNCPWD | vncpasswd -f > /root/.vnc/passwd
 chmod 600 /root/.vnc/passwd
@@ -18,9 +10,13 @@ chmod 600 /root/.vnc/passwd
 if [ $VNCEXPOSE = 1 ]
 then
   # Expose VNC
+  rm /tmp/.X0-lock
+  rm /tmp/.X11-unix/X0
   vncserver :0 -rfbport $VNCPORT -geometry $VNCDISPLAY -depth $VNCDEPTH \
     > /var/log/vncserver.log 2>&1
 else
+  rm /tmp/.X0-lock
+  rm /tmp/.X11-unix/X0
   # Localhost only
   vncserver :0 -rfbport $VNCPORT -geometry $VNCDISPLAY -depth $VNCDEPTH -localhost \
     > /var/log/vncserver.log 2>&1
